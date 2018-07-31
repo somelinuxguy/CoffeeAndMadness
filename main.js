@@ -29,16 +29,11 @@ var populateOrderPage = function(orderList) {
     orderList.forEach(function(order) {
         console.log("Adding order to page: " + order.name);
         var orderDIV = document.createElement('div');
+        var orderP = document.createElement('p');
         orderDIV.classList.add('order');
-        const templateStr = `
-        <p> Name: ${order.name} <br/>
-        Location: ${order.location} <br/>
-        Brain: ${order.size} <br/>
-        Adulterants: ${order.adulterant} <br/>
-        Sacrifices: ${order.cultists} <br/>
-        `;
-        // NO!!!  no no no no this is stupid stupid evil bad.
-        orderDIV.innerHTML = templateStr;
+        const templateStr = `Name: ${order.name} Location: ${order.location} Brain: ${order.size} Adulterants: ${order.adulterant} Sacrifices: ${order.cultists}`;
+        orderP.textContent = templateStr;
+        orderDIV.appendChild(orderP);
         container.appendChild(orderDIV);
         // remove order event handler
         var removeOrder = function(event) {
@@ -53,7 +48,7 @@ var populateOrderPage = function(orderList) {
             populateOrderPage(orderList);
         };
         orderDIV.addEventListener('click',removeOrder);
-    })
+    });
 }
 
 var newOrder = function(event) {
@@ -71,7 +66,6 @@ var newOrder = function(event) {
         adulterant: myAdulterant.value,
         cultists: myCultists.value,
         };
-
     orderList.push(orderInfo);
     saveOrder(orderList);
     populateOrderPage(orderList);
